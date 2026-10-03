@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="mobile_tab" name="shell-type"/>
+<style>
+  @layer base {
+    html, body {
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      background-color: #F8FAFC;
+      color: #0F172A;
+    }
+    body {
+      overscroll-behavior: none;
+    }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+  }
+  ::-webkit-scrollbar { display: none; }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          background: "#F8FAFC",
+          surface: "#FFFFFF",
+          "surface-card": "#FFFFFF",
+          "surface-container": "#F1F5F9",
+          primary: "#0D9488",
+          "on-primary": "#FFFFFF",
+          "primary-container": "#CCFBF1",
+          secondary: "#0284C7",
+          emerald: "#10B981",
+          "coral-red": "#EF4444",
+          "warm-amber": "#F59E0B",
+          "on-surface": "#0F172A",
+          "on-surface-variant": "#64748B"
+        },
+        fontFamily: {
+          headline: ["Space Grotesk", "sans-serif"],
+          body: ["DM Sans", "sans-serif"]
+        }
+      }
+    }
+  };
+</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+  body { min-height: max(884px, 100dvh); }
+</style>
+</head>
+<body class="bg-[#F8FAFC] font-body text-[#0F172A] flex flex-col min-h-screen">
+<!-- Top App Bar -->
+<header class="fixed top-0 inset-x-0 z-50 bg-[#F8FAFC]/90 backdrop-blur-xl pt-safe border-b border-[#E2E8F0]">
+<div class="h-16 px-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-headline font-bold text-xl text-[#0F172A] tracking-tight">SmartNeb</span>
+<div class="flex items-center gap-1.5 bg-[#D1FAE5] border border-[#10B981]/30 px-2.5 py-1 rounded-full text-xs text-[#065F46] font-semibold">
+<span class="material-symbols-outlined text-[14px]">cloud_download</span>
+<span>MQTT Live</span>
+</div>
+</div>
+<div class="flex items-center gap-2.5">
+<div class="flex items-center gap-2.5 bg-white border border-[#E2E8F0] px-3 py-1 rounded-full text-xs text-[#64748B] font-medium shadow-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[#0D9488] text-[15px]">battery_charging_full</span>
+<span class="text-[#0F172A] font-semibold">84%</span>
+</div>
+<span class="text-[#CBD5E1]">|</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[#0284C7] text-[15px]">water_drop</span>
+<span class="text-[#0F172A] font-semibold">92%</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-[#CCFBF1] border border-[#0D9488]/30 flex items-center justify-center text-[#0D9488] hover:bg-[#99F6E4] transition-colors">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Container -->
+<main class="flex flex-col relative w-full px-4 pt-20 pb-28 gap-4 max-w-md mx-auto">
+<!-- Active Patient Card -->
+<div class="bg-white rounded-2xl p-5 shadow-sm border border-[#E2E8F0] relative overflow-hidden flex flex-col gap-3.5">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-[#0D9488]/5 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-[#CCFBF1] border border-[#0D9488]/20 flex items-center justify-center text-[#0D9488] font-headline font-bold text-lg shadow-sm">
+          JD
+        </div>
+<div>
+<span class="text-[11px] text-[#64748B] uppercase tracking-wider font-semibold">Active Patient</span>
+<h2 class="text-xl text-[#0F172A] font-headline font-bold">John Doe</h2>
+</div>
+</div>
+<div class="flex items-center gap-1.5 bg-[#D1FAE5] text-[#065F46] px-3 py-1 rounded-full text-xs font-semibold border border-[#10B981]/30">
+<span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
+<span>Stable &amp; Resting</span>
+</div>
+</div>
+<!-- Live Vitals Summary Row -->
+<div class="grid grid-cols-3 gap-2.5 pt-1">
+<div class="bg-[#F8FAFC] rounded-xl p-3 border border-[#E2E8F0] flex flex-col gap-1">
+<div class="flex items-center gap-1 text-[#64748B] text-xs font-medium">
+<span class="material-symbols-outlined text-[#0284C7] text-[16px]">air</span>
+<span>SpO2</span>
+</div>
+<div class="text-xl text-[#0F172A] font-headline font-bold">98%</div>
+<span class="text-[10px] text-[#047857] font-semibold">Optimal Range</span>
+</div>
+<div class="bg-[#F8FAFC] rounded-xl p-3 border border-[#E2E8F0] flex flex-col gap-1">
+<div class="flex items-center gap-1 text-[#64748B] text-xs font-medium">
+<span class="material-symbols-outlined text-[#0D9488] text-[16px]">favorite</span>
+<span>Heart Rate</span>
+</div>
+<div class="text-xl text-[#0F172A] font-headline font-bold">72 <span class="text-xs font-normal text-[#64748B]">bpm</span></div>
+<span class="text-[10px] text-[#047857] font-semibold">Normal Rhythm</span>
+</div>
+<div class="bg-[#F8FAFC] rounded-xl p-3 border border-[#E2E8F0] flex flex-col gap-1">
+<div class="flex items-center gap-1 text-[#64748B] text-xs font-medium">
+<span class="material-symbols-outlined text-[#D97706] text-[16px]">bolt</span>
+<span>Battery</span>
+</div>
+<div class="text-xl text-[#0F172A] font-headline font-bold">84%</div>
+<span class="text-[10px] text-[#64748B]">14h remaining</span>
+</div>
+</div>
+</div>
+<!-- Quick Action Row -->
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-white hover:bg-slate-50 transition-all p-4 rounded-2xl flex flex-col items-start gap-2.5 shadow-sm border border-[#E2E8F0] text-left group">
+<div class="w-10 h-10 rounded-xl bg-[#CCFBF1] text-[#0D9488] flex items-center justify-center group-hover:scale-105 transition-transform border border-[#0D9488]/20 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-[#0F172A]">Direct Clinician</h3>
+<p class="text-xs text-[#64748B] mt-0.5 line-clamp-1">Dr. Sarah Jenkins, Pulmonology</p>
+</div>
+</button>
+<button class="bg-[#FEF2F2] hover:bg-[#FEE2E2] transition-all p-4 rounded-2xl flex flex-col items-start gap-2.5 shadow-sm border border-[#FCA5A5] text-left group" onclick="triggerSOS()">
+<div class="w-10 h-10 rounded-xl bg-[#EF4444] text-white flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">emergency_home</span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-[#DC2626]">Emergency SOS</h3>
+<p class="text-xs text-[#991B1B] mt-0.5 line-clamp-1">Broadcast alert to team</p>
+</div>
+</button>
+</div>
+<!-- Nebulizer Flow Rate Live Monitor Card -->
+<div class="bg-white rounded-2xl p-4 shadow-sm border border-[#E2E8F0] flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#0D9488] text-[20px]">monitoring</span>
+<h3 class="text-sm font-bold text-[#0F172A] font-headline">Nebulizer Flow Rate</h3>
+</div>
+<span class="text-xs text-[#065F46] bg-[#D1FAE5] px-2.5 py-0.5 rounded-full font-semibold border border-[#10B981]/30">Live 6.2 L/min</span>
+</div>
+<!-- Waveform Graph -->
+<div class="w-full h-24 bg-[#F0FDFA] rounded-xl p-2 flex items-center justify-center relative overflow-hidden border border-[#CCFBF1]">
+<svg class="w-full h-full" fill="none" viewbox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 40 Q 25 10, 50 40 T 100 40 T 150 20 T 200 50 T 250 40 T 300 40" fill="none" stroke="#0D9488" stroke-linecap="round" stroke-width="2.5"></path>
+<path d="M0 40 Q 25 10, 50 40 T 100 40 T 150 20 T 200 50 T 250 40 T 300 40 L 300 80 L 0 80 Z" fill="url(#grad)" opacity="0.3"></path>
+<defs>
+<lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#0D9488"></stop>
+<stop offset="100%" stop-color="transparent"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute right-3 top-3 flex items-center gap-1.5 text-[10px] text-[#0F172A] bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-md border border-[#E2E8F0] shadow-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-[#0D9488] animate-ping"></span>
+<span>Real-time MQTT</span>
+</div>
+</div>
+</div>
+<!-- Event & Activity Log Section -->
+<div class="bg-white rounded-2xl p-4 shadow-sm border border-[#E2E8F0] flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#0284C7] text-[20px]">notifications_active</span>
+<h3 class="text-sm font-bold text-[#0F172A] font-headline">Event &amp; Activity Log</h3>
+</div>
+<span class="text-xs text-[#64748B] font-medium">Today</span>
+</div>
+<div class="flex flex-col gap-2.5">
+<div class="flex items-start gap-3 p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+<div class="w-8 h-8 rounded-lg bg-[#CCFBF1] text-[#0D9488] flex items-center justify-center shrink-0 mt-0.5 border border-[#0D9488]/20">
+<span class="material-symbols-outlined text-[16px]">medication</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h4 class="text-xs font-bold text-[#0F172A] truncate">Albuterol Dose Completed</h4>
+<span class="text-[11px] text-[#64748B]">10:42 AM</span>
+</div>
+<p class="text-xs text-[#64748B] mt-0.5">Patient completed scheduled 2.5mg nebulization session successfully.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+<div class="w-8 h-8 rounded-lg bg-[#FEF3C7] text-[#D97706] flex items-center justify-center shrink-0 mt-0.5 border border-[#F59E0B]/30">
+<span class="material-symbols-outlined text-[16px]">water_drop</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h4 class="text-xs font-bold text-[#0F172A] truncate">Chamber Refill Status</h4>
+<span class="text-[11px] text-[#64748B]">08:15 AM</span>
+</div>
+<p class="text-xs text-[#64748B] mt-0.5">Saline chamber refilled to 92% capacity by caregiver.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+<div class="w-8 h-8 rounded-lg bg-[#D1FAE5] text-[#059669] flex items-center justify-center shrink-0 mt-0.5 border border-[#10B981]/30">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h4 class="text-xs font-bold text-[#0F172A] truncate">Device Self-Test Passed</h4>
+<span class="text-[11px] text-[#64748B]">07:00 AM</span>
+</div>
+<p class="text-xs text-[#64748B] mt-0.5">SmartNeb diagnostic check complete. Pressure sensors calibrated.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- SOS Broadcast Receipts Log -->
+<div class="bg-white rounded-2xl p-4 shadow-sm border border-[#E2E8F0] flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#EF4444] text-[20px]">shield_locked</span>
+<h3 class="text-sm font-bold text-[#0F172A] font-headline">SOS Broadcast Receipts</h3>
+</div>
+<span class="text-[11px] text-[#065F46] flex items-center gap-1 bg-[#D1FAE5] px-2.5 py-0.5 rounded-full border border-[#10B981]/30 font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+        Secure Relay Active
+      </span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-lg bg-[#D1FAE5] text-[#059669] flex items-center justify-center border border-[#10B981]/30">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+</div>
+<div>
+<div class="text-xs font-bold text-[#0F172A]">Pulmonology On-Call Unit</div>
+<div class="text-[10px] text-[#64748B]">Acknowledged via Pager Gateway</div>
+</div>
+</div>
+<span class="text-[11px] text-[#64748B]">Yesterday</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+<div class="flex items-center gap-3">
+<div class="w-7 h-7 rounded-lg bg-[#D1FAE5] text-[#059669] flex items-center justify-center border border-[#10B981]/30">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+</div>
+<div>
+<div class="text-xs font-bold text-[#0F172A]">Emergency Dispatch Center</div>
+<div class="text-[10px] text-[#64748B]">Test Beacon Handshake Verified</div>
+</div>
+</div>
+<span class="text-[11px] text-[#64748B]">3 days ago</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive SOS Modal -->
+<div class="fixed inset-0 bg-[#0F172A]/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300" id="sosModal">
+<div class="bg-white rounded-2xl p-6 max-w-sm w-full flex flex-col items-center text-center gap-4 shadow-2xl border border-[#EF4444]/30">
+<div class="w-16 h-16 rounded-full bg-[#FEE2E2] text-[#EF4444] flex items-center justify-center animate-bounce border border-[#FCA5A5]">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">emergency_home</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-[#0F172A] font-headline">SOS Broadcast Sent</h3>
+<p class="text-xs text-[#64748B] mt-1">Emergency alert transmitted to assigned clinicians and medical dispatch.</p>
+</div>
+<button class="w-full py-3 bg-[#0F172A] hover:bg-[#1E293B] text-white rounded-xl text-xs font-bold transition-colors shadow-sm" onclick="closeSOS()">
+      Dismiss Notice
+    </button>
+</div>
+</div>
+<script>
+  function triggerSOS() {
+    const modal = document.getElementById('sosModal');
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+  }
+  function closeSOS() {
+    const modal = document.getElementById('sosModal');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+  }
+</script>
+<!-- Clean M3 Bottom Navigation Bar -->
+<nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-white/95 backdrop-blur-xl border-t border-[#E2E8F0] shadow-md">
+<div class="flex justify-around items-center h-20 px-4">
+<a class="flex flex-col items-center justify-center gap-1 w-16 h-16 text-[#0D9488] transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-bold">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-16 h-16 text-[#64748B] hover:text-[#0F172A] transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-[10px] font-medium">Adherence</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-16 h-16 text-[#64748B] hover:text-[#0F172A] transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">neurology</span>
+<span class="text-[10px] font-medium">AI Assist</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-16 h-16 text-[#64748B] hover:text-[#0F172A] transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

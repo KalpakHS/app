@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="mobile_stack" name="shell-type"/>
+<style>
+  @layer base {
+    html, body {
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      background-color: #F8FAFC;
+      color: #0F172A;
+    }
+    body {
+      overscroll-behavior: none;
+    }
+    .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+  }
+  ::-webkit-scrollbar { display: none; }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "background": "#F8FAFC",
+          "surface": "#FFFFFF",
+          "surface-card": "#FFFFFF",
+          "primary": "#0D9488",
+          "primary-hover": "#0F766E",
+          "primary-container": "#CCFBF1",
+          "on-primary": "#FFFFFF",
+          "on-surface": "#0F172A",
+          "on-surface-variant": "#475569",
+          "outline": "#CBD5E1",
+          "outline-variant": "#E2E8F0",
+          "secondary": "#0284C7"
+        },
+        fontFamily: {
+          "headline-md": ["Space Grotesk", "sans-serif"],
+          "body-md": ["DM Sans", "sans-serif"],
+          "label-lg": ["DM Sans", "sans-serif"],
+          "label-sm": ["DM Sans", "sans-serif"]
+        }
+      }
+    }
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+  body {
+    min-height: max(884px, 100dvh);
+  }
+</style>
+</head>
+<body class="bg-background font-body-md text-on-surface flex flex-col min-h-screen">
+<!-- Top App Bar -->
+<header class="fixed top-0 inset-x-0 z-50 bg-[#F8FAFC]/90 backdrop-blur-xl border-b border-outline-variant/60 pt-safe">
+<div class="h-16 px-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface rounded-full hover:bg-slate-100 transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-[20px]">arrow_back_ios_new</span>
+</button>
+<span class="font-headline-md text-lg font-semibold text-on-surface">SmartNeb Auth</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-teal-50 text-primary border border-teal-200/80 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex flex-col relative w-full px-5 pt-20 pb-8 bg-background max-w-md mx-auto flex-grow justify-between">
+<div class="flex flex-col w-full">
+<!-- Brand Header / Logo Animation Section -->
+<div class="flex flex-col items-center justify-center pt-2 pb-5 text-center">
+<div class="w-16 h-16 rounded-2xl bg-teal-50 border border-teal-100 flex items-center justify-center shadow-sm relative mb-3">
+<div class="absolute inset-0 bg-primary/10 rounded-2xl animate-pulse"></div>
+<span class="material-symbols-outlined text-[36px] text-primary" style="font-variation-settings: 'FILL' 1;">pulmonology</span>
+</div>
+<h1 class="font-headline-md text-2xl font-bold text-on-surface mb-1">SmartNeb</h1>
+<p class="font-body-md text-xs text-on-surface-variant font-medium">IoT Respiratory Telemetry &amp; Therapy</p>
+</div>
+<!-- Role Switcher Demo Pills -->
+<div class="mb-4">
+<div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2 px-1">Role Preset Switcher</div>
+<div class="flex items-center gap-1.5 p-1 bg-slate-100/90 rounded-xl border border-slate-200/80 overflow-x-auto no-scrollbar">
+<button class="role-chip flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold bg-white text-primary shadow-sm border border-slate-200/50 transition-all text-center whitespace-nowrap" onclick="selectRole(this, 'alex.mercer@patient.smartneb.io')" type="button">Patient</button>
+<button class="role-chip flex-1 py-1.5 px-3 rounded-lg text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-white/60 transition-all text-center whitespace-nowrap" onclick="selectRole(this, 'dr.vance@clinic.smartneb.io')" type="button">Doctor</button>
+<button class="role-chip flex-1 py-1.5 px-3 rounded-lg text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-white/60 transition-all text-center whitespace-nowrap" onclick="selectRole(this, 'care.elena@family.smartneb.io')" type="button">Caregiver</button>
+<button class="role-chip flex-1 py-1.5 px-3 rounded-lg text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-white/60 transition-all text-center whitespace-nowrap" onclick="selectRole(this, 'admin@ops.smartneb.io')" type="button">Admin</button>
+</div>
+</div>
+<!-- Interactive Auth Container (Card #FFFFFF with subtle border and soft shadow) -->
+<div class="bg-surface border border-outline-variant rounded-2xl p-5 shadow-sm mb-6">
+<!-- Tabbed Selector (Light segmented control) -->
+<div class="grid grid-cols-2 p-1 bg-slate-100 rounded-xl mb-6 relative border border-slate-200">
+<div class="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white rounded-lg transition-all duration-300 ease-out shadow-sm border border-slate-200/60" id="tab-indicator"></div>
+<button class="relative z-10 py-2.5 text-center font-label-lg font-semibold text-on-surface transition-colors duration-200" id="btn-signin" onclick="switchTab('signin')" type="button">Sign In</button>
+<button class="relative z-10 py-2.5 text-center font-label-lg font-medium text-on-surface-variant transition-colors duration-200" id="btn-signup" onclick="switchTab('signup')" type="button">Create Account</button>
+</div>
+<!-- Forms Area -->
+<form class="flex flex-col gap-4" id="auth-form" onsubmit="handleAuth(event)">
+<!-- Name Field (Hidden for Sign In by default) -->
+<div class="flex flex-col gap-1.5 hidden opacity-0 transition-opacity duration-300" id="name-field-container">
+<label class="font-label-sm text-xs font-semibold text-on-surface">Full Name</label>
+<div class="relative flex items-center">
+<span class="absolute left-3.5 material-symbols-outlined text-slate-400 text-[20px]">badge</span>
+<input class="w-full bg-white h-13 py-3 pl-11 pr-4 rounded-xl text-on-surface placeholder:text-slate-400 border border-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-body-md transition-all shadow-sm" id="fullname" placeholder="Alex Mercer" type="text"/>
+</div>
+</div>
+<!-- Email Field -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-xs font-semibold text-on-surface">Email Address</label>
+<div class="relative flex items-center">
+<span class="absolute left-3.5 material-symbols-outlined text-slate-400 text-[20px]">mail</span>
+<input class="w-full bg-white h-13 py-3 pl-11 pr-4 rounded-xl text-on-surface placeholder:text-slate-400 border border-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-body-md transition-all shadow-sm" id="email" placeholder="alex.mercer@telemetry.io" required="" type="email" value="alex.mercer@patient.smartneb.io"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-xs font-semibold text-on-surface">Password</label>
+<a class="font-label-sm text-xs text-primary hover:text-primary-hover font-medium hover:underline" href="#" id="forgot-link" onclick="triggerForgot(event)">Forgot your password?</a>
+</div>
+<div class="relative flex items-center">
+<span class="absolute left-3.5 material-symbols-outlined text-slate-400 text-[20px]">lock</span>
+<input class="w-full bg-white h-13 py-3 pl-11 pr-12 rounded-xl text-on-surface placeholder:text-slate-400 border border-outline focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 text-body-md transition-all shadow-sm" id="password" placeholder="••••••••••••" required="" type="password" value="demo123456"/>
+<button class="absolute right-3.5 text-slate-400 hover:text-on-surface p-1" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined text-[20px]" id="eye-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Dynamic Notice for Sign Up -->
+<div class="hidden bg-teal-50/80 p-3.5 rounded-xl border border-teal-100 flex items-start gap-3 mt-1" id="signup-notice">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">verified</span>
+<p class="font-body-md text-xs text-on-surface-variant leading-relaxed">
+              New accounts are automatically provisioned with a <span class="text-primary font-semibold">SmartNeb-X1 Demo Device</span>, standard reactive care plan, and assigned virtual care team.
+            </p>
+</div>
+<!-- Primary Action Button -->
+<button class="mt-2 w-full h-13 py-3.5 bg-primary hover:bg-primary-hover text-on-primary font-label-lg font-semibold rounded-xl shadow-sm hover:shadow transition-all active:scale-[0.98] flex items-center justify-center gap-2" id="submit-btn" type="submit">
+<span class="material-symbols-outlined text-[20px]" id="submit-icon">login</span>
+<span id="submit-text">Sign In</span>
+</button>
+</form>
+<!-- Divider -->
+<div class="flex items-center my-6">
+<div class="flex-grow h-[1px] bg-slate-200"></div>
+<span class="px-3 font-label-sm text-xs text-on-surface-variant font-medium">or continue with</span>
+<div class="flex-grow h-[1px] bg-slate-200"></div>
+</div>
+<!-- OAuth Google Button -->
+<button class="w-full h-13 py-3 bg-white hover:bg-slate-50 text-on-surface font-label-lg font-medium rounded-xl transition-all flex items-center justify-center gap-3 border border-outline shadow-sm active:scale-[0.98]" onclick="handleGoogleAuth()" type="button">
+<svg class="w-5 h-5 shrink-0" viewbox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.2v3.15C3.18 21.32 7.23 24 12 24z" fill="#34A853"></path>
+<path d="M5.27 14.24c-.25-.72-.39-1.5-.39-2.24s.14-1.52.39-2.24V6.6H1.2C.43 8.15 0 9.89 0 12s.43 3.85 1.2 5.4l4.07-3.16z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.18 2.68 1.2 6.6l4.07 3.15c.95-2.85 3.6-4.96 6.73-4.96z" fill="#EA4335"></path>
+</svg>
+<span class="text-sm">Continue with Google</span>
+</button>
+</div>
+</div>
+<!-- Trust & Security Footer Badge -->
+<div class="flex items-center justify-center gap-2 text-on-surface-variant pt-2 pb-safe text-center">
+<span class="material-symbols-outlined text-[16px] text-teal-600">lock_person</span>
+<span class="font-body-md text-xs font-medium">HIPAA Compliant &amp; End-to-End Encrypted Telemetry</span>
+</div>
+<script>
+      let currentMode = 'signin';
+
+      function selectRole(button, email) {
+        document.querySelectorAll('.role-chip').forEach(btn => {
+          btn.className = 'role-chip flex-1 py-1.5 px-3 rounded-lg text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-white/60 transition-all text-center whitespace-nowrap';
+        });
+        button.className = 'role-chip flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold bg-white text-primary shadow-sm border border-slate-200/50 transition-all text-center whitespace-nowrap';
+        document.getElementById('email').value = email;
+      }
+
+      function switchTab(mode) {
+        currentMode = mode;
+        const indicator = document.getElementById('tab-indicator');
+        const btnSignin = document.getElementById('btn-signin');
+        const btnSignup = document.getElementById('btn-signup');
+        const nameContainer = document.getElementById('name-field-container');
+        const forgotLink = document.getElementById('forgot-link');
+        const signupNotice = document.getElementById('signup-notice');
+        const submitText = document.getElementById('submit-text');
+        const submitIcon = document.getElementById('submit-icon');
+
+        if (mode === 'signin') {
+          indicator.style.transform = 'translateX(0%)';
+          btnSignin.className = 'relative z-10 py-2.5 text-center font-label-lg font-semibold text-on-surface transition-colors duration-200';
+          btnSignup.className = 'relative z-10 py-2.5 text-center font-label-lg font-medium text-on-surface-variant transition-colors duration-200';
+          
+          nameContainer.classList.add('hidden', 'opacity-0');
+          document.getElementById('fullname').removeAttribute('required');
+          forgotLink.style.display = 'block';
+          signupNotice.classList.add('hidden');
+          
+          submitText.innerText = 'Sign In';
+          submitIcon.innerText = 'login';
+        } else {
+          indicator.style.transform = 'translateX(100%)';
+          btnSignin.className = 'relative z-10 py-2.5 text-center font-label-lg font-medium text-on-surface-variant transition-colors duration-200';
+          btnSignup.className = 'relative z-10 py-2.5 text-center font-label-lg font-semibold text-on-surface transition-colors duration-200';
+          
+          nameContainer.classList.remove('hidden');
+          setTimeout(() => nameContainer.classList.remove('opacity-0'), 10);
+          document.getElementById('fullname').setAttribute('required', 'true');
+          forgotLink.style.display = 'none';
+          signupNotice.classList.remove('hidden');
+          
+          submitText.innerText = 'Create Account & Provision Device';
+          submitIcon.innerText = 'rocket_launch';
+        }
+      }
+
+      function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          eyeIcon.innerText = 'visibility_off';
+        } else {
+          passwordInput.type = 'password';
+          eyeIcon.innerText = 'visibility';
+        }
+      }
+
+      function triggerForgot(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        alert(email ? `Password reset link sent to ${email}` : 'Please enter your email address first.');
+      }
+
+      function handleAuth(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span> Authenticating...';
+        setTimeout(() => {
+          alert(currentMode === 'signin' ? 'Successfully signed in!' : 'Account created & demo device paired!');
+          btn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span> Success';
+        }, 1200);
+      }
+
+      function handleGoogleAuth() {
+        alert('Initiating secure Google OAuth handshake...');
+      }
+    </script>
+</main>
+</body></html>
