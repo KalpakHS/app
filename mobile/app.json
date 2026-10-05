@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "SmartNeb",
+    "slug": "smartneb-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F8FAFC"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "io.smartneb.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0D9488"
+      },
+      "package": "io.smartneb.app"
+    },
+    "extra": {
+      "defaultHost": "192.168.1.9",
+      "defaultPort": "3000"
+    }
+  }
+}

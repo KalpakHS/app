@@ -30,6 +30,19 @@ export default function DeviceFrame({ children }) {
     { label: '100% Fluid', width: '100%' },
   ];
 
+  const isNative = typeof window !== 'undefined' && (
+    Boolean(window.ReactNativeWebView) ||
+    new URLSearchParams(location.search).get('native') === 'true'
+  );
+
+  if (isNative) {
+    return (
+      <main className="bg-surface relative flex flex-col min-h-screen w-full">
+        {children}
+      </main>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-start text-slate-800">
       {/* Top QA Navigation Bar - collapsible for easy reviewing */}
