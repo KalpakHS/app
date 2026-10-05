@@ -1,0 +1,74 @@
+# ==============================================================================
+# .dockerignore for SmartNeb
+# Excludes unnecessary build artifacts, caches, and local environments
+# ==============================================================================
+
+# Version control
+.git/
+.github/
+.gitignore
+
+# Package managers & dependencies
+node_modules/
+backend/venv/
+venv/
+.venv/
+env/
+
+# Build artifacts & local caches
+dist/
+dist-ssr/
+build/
+*.local
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Local SQLite databases (new DB is provisioned and seeded inside container)
+*.sqlite3
+backend/db.sqlite3
+db.sqlite3
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local static files collected on host
+backend/staticfiles/
+staticfiles/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Exported raw design assets (already integrated into src/ and not required for Docker build)
+admin_device_fleet_smartneb/
+ai_assistant_smartneb/
+authentication_smartneb/
+caregiver_monitor_smartneb/
+dashboard/
+doctor_triage_roster_smartneb/
+home_smartneb/
+therapy/
+smartneb_iot_system/
+scripts/

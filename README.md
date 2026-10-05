@@ -99,12 +99,32 @@ npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Production Build
+### Running with Docker (Production Ready)
+
+No manual node or python installation required:
+
+**Option 1: Using Docker Compose (Recommended)**
+```bash
+docker compose up --build
+```
+Access the application at [http://localhost:3000](http://localhost:3000) or [http://localhost](http://localhost).
+
+**Option 2: Using Docker CLI**
+```bash
+# Build the unified production image
+docker build -t smartneb .
+
+# Run the container
+docker run -d -p 3000:3000 -p 80:80 --name smartneb-app smartneb
+```
+Access the application at [http://localhost:3000](http://localhost:3000) or [http://localhost](http://localhost).
+
+### Production Build (Local)
 ```bash
 npm run build
 ```
 
-### Preview Production Build
+### Preview Production Build (Local)
 ```bash
 npm run preview
 ```
