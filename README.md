@@ -119,6 +119,27 @@ docker run -d -p 3000:3000 -p 80:80 --name smartneb-app smartneb
 ```
 Access the application at [http://localhost:3000](http://localhost:3000) or [http://localhost](http://localhost).
 
+### Running on Mobile with Expo Go (iOS & Android)
+
+To experience SmartNeb on your physical mobile device with full touch gestures, safe area handling, and native chrome:
+
+1. **Install Expo Go**:
+   - Download **Expo Go** from Google Play (Android) or App Store (iOS).
+2. **Connect to Same Wi-Fi**:
+   - Ensure your phone and development machine are connected to the same local Wi-Fi network.
+3. **Start the Frontend**:
+   ```bash
+   npm run dev
+   ```
+4. **Start Expo Go Bundler**:
+   ```bash
+   npm run mobile
+   ```
+5. **Scan QR Code**:
+   - **Android**: Open the **Expo Go** app and select **"Scan QR code"**.
+   - **iOS**: Open the stock **Camera** app, scan the terminal QR code, and tap to open in **Expo Go**.
+6. The mobile app automatically connects to `http://<YOUR_LAN_IP>:3000?native=true` without desktop frames or borders.
+
 ### Production Build (Local)
 ```bash
 npm run build
@@ -128,6 +149,7 @@ npm run build
 ```bash
 npm run preview
 ```
+
 
 ---
 
