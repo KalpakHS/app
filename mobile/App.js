@@ -30,7 +30,7 @@ export default function App() {
       // 1. Check linkingUri / experienceUrl (e.g. exp://10.88.220.154:8081)
       const linkingUri = Constants.linkingUri || Constants.experienceUrl || '';
       const match = linkingUri.match(/exp:\/\/([^:\/]+)/);
-      if (match && match[1] && !match[1].includes('localhost') && !match[1].includes('127.0.0.1')) {
+      if (match && match[1] && !match[1].includes('localhost') && !match[1].includes('127.0.0.1') && !match[1].includes('.exp.direct') && !match[1].includes('ngrok')) {
         return `http://${match[1]}:3000?native=true`;
       }
 
