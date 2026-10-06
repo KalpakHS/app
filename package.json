@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "backend": "cd backend && venv\\Scripts\\python.exe manage.py runserver 0.0.0.0:8000",
     "build": "vite build",
     "preview": "vite preview",
     "mobile": "npm --prefix mobile start",

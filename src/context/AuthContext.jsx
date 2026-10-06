@@ -130,8 +130,8 @@ export function AuthProvider({ children }) {
       return { success: true, user: combinedUser };
     }
 
-    // Backend error or offline
-    if (res.isNetworkError) {
+    // Backend error or offline (network error or proxy 500+)
+    if (res.isNetworkError || (res.status && res.status >= 500)) {
       setIsBackendConnected(false);
       // Allow local simulated login for offline preview
       setCurrentUser(user);
