@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Modal,
-  SafeAreaView,
   Platform,
   BackHandler,
   Alert,
 } from 'react-native';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
 import Constants from 'expo-constants';
@@ -88,8 +88,9 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="dark" backgroundColor="#F8FAFC" />
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <StatusBar style="dark" backgroundColor="#F8FAFC" />
 
       {/* Main Web View */}
       <View style={styles.webContainer}>
@@ -236,7 +237,8 @@ export default function App() {
         </View>
       </Modal>
     </SafeAreaView>
-  );
+  </SafeAreaProvider>
+);
 }
 
 const styles = StyleSheet.create({
