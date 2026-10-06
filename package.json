@@ -8,6 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "mobile": "npm --prefix mobile start",
+    "mobile:tunnel": "npm --prefix mobile run tunnel",
+    "mobile:lan": "npm --prefix mobile run lan",
     "mobile:install": "npm --prefix mobile install"
   },
   "dependencies": {

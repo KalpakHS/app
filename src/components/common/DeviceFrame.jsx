@@ -32,7 +32,8 @@ export default function DeviceFrame({ children }) {
 
   const isNative = typeof window !== 'undefined' && (
     Boolean(window.ReactNativeWebView) ||
-    new URLSearchParams(location.search).get('native') === 'true'
+    new URLSearchParams(location.search).get('native') === 'true' ||
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
   );
 
   if (isNative) {
