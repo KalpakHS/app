@@ -45,7 +45,7 @@ export default function App() {
     } catch (e) {
       // Fallback
     }
-    return 'http://172.16.14.143:3000?native=true';
+    return 'http://192.168.1.9:3000?native=true';
   };
 
   const [currentUrl, setCurrentUrl] = useState(getInitialUrl());
@@ -198,7 +198,7 @@ export default function App() {
               onChangeText={setInputUrl}
               autoCapitalize="none"
               autoCorrect={false}
-              placeholder="http://172.16.14.143:3000"
+              placeholder="http://192.168.1.9:3000"
             />
 
             <View style={styles.quickPresets}>
@@ -206,15 +206,15 @@ export default function App() {
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
                 <TouchableOpacity
                   style={styles.presetChip}
-                  onPress={() => setInputUrl('http://172.16.14.143:3000?native=true')}
+                  onPress={() => setInputUrl('http://192.168.1.9:3000?native=true')}
                 >
-                  <Text style={styles.presetChipText}>Wi-Fi (172.16.14.143)</Text>
+                  <Text style={styles.presetChipText}>Home Wi-Fi (192.168.1.9)</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.presetChip}
-                  onPress={() => setInputUrl('http://192.168.137.1:3000?native=true')}
+                  onPress={() => setInputUrl('http://172.16.14.143:3000?native=true')}
                 >
-                  <Text style={styles.presetChipText}>Hotspot (192.168.137.1)</Text>
+                  <Text style={styles.presetChipText}>Campus (172.16.14.143)</Text>
                 </TouchableOpacity>
               </View>
             </View>
