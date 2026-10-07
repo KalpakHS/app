@@ -74,14 +74,22 @@ WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
 
 # Database
-# Support PostgreSQL via DATABASE_URL, fallback smoothly to SQLite
-default_db_url = f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', default_db_url),
-        conn_max_age=600,
-    )
-}
+# Support PostgreSQL/MySQL via DATABASE_URL, fallback cleanly to SQLite at BASE_DIR
+db_url = os.getenv('DATABASE_URL', '')
+if db_url and not db_url.startswith('sqlite'):
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=db_url,
+            conn_max_age=600,
+        )
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Custom User Model
 AUTH_USER_MODEL = 'accounts.User'
