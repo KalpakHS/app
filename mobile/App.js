@@ -15,6 +15,7 @@ import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
 import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const webViewRef = useRef(null);
@@ -51,6 +52,16 @@ export default function App() {
   const [currentUrl, setCurrentUrl] = useState(getInitialUrl());
   const [inputUrl, setInputUrl] = useState(currentUrl);
 
+  // Load saved server URL from persistent storage on launch
+  useEffect(() => {
+    AsyncStorage.getItem('smartneb_server_url').then((saved) => {
+      if (saved) {
+        setCurrentUrl(saved);
+        setInputUrl(saved);
+      }
+    }).catch(() => {});
+  }, []);
+
   // Handle hardware back button on Android
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -82,6 +93,7 @@ export default function App() {
     }
     setCurrentUrl(cleanUrl);
     setInputUrl(cleanUrl);
+    AsyncStorage.setItem('smartneb_server_url', cleanUrl).catch(() => {});
     setIsSettingsOpen(false);
     setHasError(false);
     setIsLoading(true);
