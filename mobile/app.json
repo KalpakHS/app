@@ -5,17 +5,24 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "io.smartneb.app"
     },
     "android": {
-      "package": "io.smartneb.app"
+      "package": "io.smartneb.app",
+      "usesCleartextTraffic": true
     },
     "extra": {
       "defaultHost": "192.168.1.9",
-      "defaultPort": "3000"
+      "defaultPort": "3000",
+      "eas": {
+        "projectId": "80464b0b-a5e0-44d6-9c88-03ab67851c49"
+      }
     },
     "plugins": [
       "expo-status-bar"
