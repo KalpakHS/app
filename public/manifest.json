@@ -1,0 +1,18 @@
+{
+  "short_name": "SmartNeb",
+  "name": "SmartNeb — Respiratory Therapy",
+  "description": "SmartNeb connected respiratory telemetry, active therapy, and clinical triage app",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/?native=true",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0D9488",
+  "display": "standalone",
+  "orientation": "portrait"
+}
